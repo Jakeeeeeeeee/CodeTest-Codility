@@ -13,8 +13,9 @@ export default class TodoList extends Component {
     addTodoList(event) {
       event.preventDefault();
 
-      var newItem = {
+      let newItem = {
         text: this._inputElement.value,
+        key: Date.now()
       };
    
       this.setState((prevState) => {
@@ -23,35 +24,49 @@ export default class TodoList extends Component {
         };
       });
 
+      this._inputElement.value="";
+    }
+
+    addDeleteLine(key) {
+
     }
 
     render() {
-        const list = this.state.items;
+        const lists = this.state.items;
 
-        console.log(list);
+        let totalList = lists.length;
+
         return (
-            <>
-                <div>
-                  <h2>
-                      Todo List
-                  </h2>
-                </div>
-                <form onSubmit={this.addTodoList}>
-                  <input 
-                    type="text" 
-                    ref={(a) => this._inputElement = a} />
-                
-                  <button type="submit">
-                      Add
-                  </button>
-                </form>
-                
-                {/* <ul>
-                    <li>
-                        {list}
-                    </li>
-                </ul> */}
-            </>
+          <>
+            <div>
+              <h2>
+                Todo List
+              </h2>
+            </div>
+
+            <form onSubmit={this.addTodoList}>
+              <input 
+                type="text" 
+                ref={(a) => this._inputElement = a} 
+              />
+          
+              <button type="submit">
+                Add
+              </button>
+            </form>
+
+            <p>
+              {totalList} todo list(s) 
+            </p>
+            
+            <ul>
+              {lists.map((l) => (
+                <li key={l.key} onClick={() => this.addDeleteLine(l.key)}>
+                  <strike>{l.text}</strike>
+                </li>
+              ))}
+            </ul>
+          </>
         );
     }
 }
