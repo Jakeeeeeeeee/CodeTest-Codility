@@ -15,7 +15,8 @@ export default class TodoList extends Component {
 
       let newItem = {
         text: this._inputElement.value,
-        key: Date.now()
+        key: Date.now(),
+        complete: false,
       };
    
       this.setState((prevState) => {
@@ -27,15 +28,36 @@ export default class TodoList extends Component {
       this._inputElement.value="";
     }
 
-    addDeleteLine(key) {
+    updateTodoList(list) {
+      const newList = this.state.items.map((_list) => {
+        if(list === _list)
+          return {
+            text: list.text,
+            key: list.key,
+            complete: !list.complete,
+          }
+          else
+            return _list
+      });
+      this.setState({ items: newList })
 
     }
 
     render() {
         const lists = this.state.items;
 
-        let totalList = lists.length;
+        let totalList = 0;
 
+        lists.map((l) => {
+          if (l.complete === false) {
+            totalList += 1;
+          }
+          return totalList;
+        });
+        
+        console.log(totalList);
+
+        console.log(this.state);
         return (
           <>
             <div>
@@ -61,8 +83,16 @@ export default class TodoList extends Component {
             
             <ul>
               {lists.map((l) => (
-                <li key={l.key} onClick={() => this.addDeleteLine(l.key)}>
-                  <strike>{l.text}</strike>
+                <li key={l.key} onClick={() => this.updateTodoList(l)}>
+                  {l.complete === true ? (
+                    <strike>
+                      {l.text}
+                    </strike>
+                  ) : (
+                    <>
+                      {l.text}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
