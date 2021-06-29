@@ -1,9 +1,5 @@
-# This is the code test/ solution of TodoList from codility
+# This is the code test/ solution of TodoList with React from codility
 
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### `yarn start`
 
