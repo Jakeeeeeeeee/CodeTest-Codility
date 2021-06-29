@@ -1,7 +1,7 @@
 # This is the code test/ solution of TodoList with React from codility
 
 - Class Components
-- code in one page
+- code in one component
 
 
 ### `yarn start`
